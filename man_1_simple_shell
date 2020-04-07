@@ -1,0 +1,21 @@
+.TH man 1 "06 April 2020" "HOLBERTON SCHOOL" "SIMPLE SHELL"
+.SH NAME
+.B Simple Shell
+- a simple command line interpreter
+.SH SYNOPSIS
+.B hsh [command_file [argument ...]]
+.br
+.B hsh [command_name [argument ...]]
+.SH DESCRIPTION
+it's a CLI (command line interface).
+it's a program that takes commands from the keyboard and gives them to the OS to perform.
+Simple Shell is a replica of the Unix shell, it works the same way.
+.SH Builtins
+in this part you will find all the builtins that we worked on.
+.br
+.SH BUGS
+we did several tests but we did not really find any bugs in our simple shell version
+.SH AUTHOR
+.B Moez Ben Rebah
+.B Moussaddak Meddeb.
+.SH
