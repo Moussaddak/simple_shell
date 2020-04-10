@@ -78,7 +78,7 @@ pid = fork();
 
 if (pid == 0)
 {
-if (execvp(argument[0], argument) == -1 || EOF)
+if (execvp(argument[0], argument) == -1)
 {
 perror("error");
 }
