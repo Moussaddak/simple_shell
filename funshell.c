@@ -25,11 +25,11 @@ char *buff = NULL;
 ssize_t read, size = 0;
 
 read = getline(&buff, &size, stdin);
- if (read == EOF)
-   {
-     perror("this is the end of file");
-     exit(EXIT_FAILURE);
-   }
+if (read == EOF)
+{
+perror("this is the end of file");
+exit(EXIT_FAILURE);
+}
 return (buff);
 }
 
