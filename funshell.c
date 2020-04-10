@@ -6,7 +6,6 @@ void shell_loop(void)
 char *cmd;
 char **argument;
 int stat;
-char c;
 
 do {
 printf("$> ");
@@ -23,9 +22,14 @@ free(argument);
 char *read_cmd(void)
 {
 char *buff = NULL;
-ssize_t size = 0;
-getline(&buff, &size, stdin);
+ssize_t read, size = 0;
 
+read = getline(&buff, &size, stdin);
+ if (read == EOF)
+   {
+     perror("this is the end of file");
+     exit(EXIT_FAILURE);
+   }
 return (buff);
 }
 
