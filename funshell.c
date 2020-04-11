@@ -93,12 +93,11 @@ else
 do
 {
 wpid = waitpid(pid, &status, WUNTRACED);
- if (wpid == '\0')
-   {
-     perror("error");
-   }
+if (wpid == '\0')
+{
+perror("error");
+}
 } while (!WIFEXITED(status) && !WIFSIGNALED(status));
 }
-
 return (1);
 }
