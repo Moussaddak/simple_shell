@@ -3,7 +3,7 @@
 
 #define B_BUFSIZE 1024
 #define B_BBUFSIZE 128
-#define B_DELIM "=''\t\r\n\a#\"&*`" 
+#define B_DELIM "' '|='\t\r\n\a#\"&*`" 
 
 
 #include <stdio.h>

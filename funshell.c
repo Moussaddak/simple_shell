@@ -22,9 +22,9 @@ free(argument);
 char *read_cmd(void)
 {
 char *buff = NULL;
-ssize_t read, size = 0;
+size_t size = 0;
 
-read = getline(&buff, &size, stdin);
+int read = getline(&buff, &size, stdin);
 if (read == EOF)
 {
 perror("this is the end of file");
@@ -45,7 +45,7 @@ if (t == NULL)
 perror("error");
 exit(EXIT_FAILURE);
 }
-token = strtok(cmd, B_DELIM);
+token = strtok(cmd, " ");
 
 while (token != NULL)
 {
@@ -78,7 +78,7 @@ pid = fork();
 
 if (pid == 0)
 {
-if (execvp(argument[0], argument) == -1)
+if (execve("/bin/ls", argument, NULL) == -1)
 {
 perror("error");
 }
@@ -90,10 +90,15 @@ perror("error");
 }
 else
 {
-do {
+do
+{
 wpid = waitpid(pid, &status, WUNTRACED);
+ if (wpid == '\0')
+   {
+     perror("error");
+   }
+} while (!WIFEXITED(status) && !WIFSIGNALED(status));
 }
-while (!WIFEXITED(status) && !WIFSIGNALED(status));
-}
+
 return (1);
 }
