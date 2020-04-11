@@ -30,6 +30,8 @@ if (read == EOF)
 perror("this is the end of file");
 exit(EXIT_FAILURE);
 }
+buff[read-1] = '\0';
+
 return (buff);
 }
 
@@ -45,7 +47,7 @@ if (t == NULL)
 perror("error");
 exit(EXIT_FAILURE);
 }
-token = strtok(cmd, " ");
+token = strtok(cmd, B_DELIM);
 
 while (token != NULL)
 {
@@ -78,7 +80,7 @@ pid = fork();
 
 if (pid == 0)
 {
-if (execve("/bin/ls", argument, NULL) == -1)
+if (execve("$PATH", argument, NULL) == -1)
 {
 perror("error");
 }
