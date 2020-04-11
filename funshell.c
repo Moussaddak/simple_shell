@@ -80,7 +80,7 @@ pid = fork();
 
 if (pid == 0)
 {
-if (execve("$PATH", argument, NULL) == -1)
+if (execve("/bin/ls", argument, NULL) == -1)
 {
 perror("error");
 }
