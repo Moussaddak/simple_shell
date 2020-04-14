@@ -1,50 +1,62 @@
 #include "shell.h"
-char* find_env_path(void);
+int find_env_path(void);
 /**
  *_path - find path of a specific command
  *@filename: name of the command
  *Return: path of a specific command if exit
  */
-char* _path(char *filename)
+char *_path(char *filename)
 {
-	int i = 0;
-	char *token, **list_path, *_path, *str_env;
+	int i = 0, index;
+	char *token = NULL, *list_path = NULL, *_path, *str_env, *slach = "/\0";
 
-one_more_time:
-	list_path = malloc(sizeof(char *) * 1024);
-	if (!list_path)
-	{
-		goto one_more_time;
-	}
-	str_env = find_env_path();
+	printf("list_path at begin : %s\n",list_path);
+	printf("list_path : %p\n",list_path);
+	index = find_env_path();
+	printf("index : %d\n",index);
+	str_env = malloc(sizeof(char) * _strlen(environ[index]) + 1);
+	_strcpy(str_env, environ[index]);
+	printf("str_env : %s \n", str_env);
 	token = strtok(str_env, "=");
+	printf("token %s\n",token);
+	printf("i : %d\n",i);
 	while (token)
 	{
+		printf("i after while : %d\n",i);
 		token = strtok(NULL, ":");
-		list_path[i] = token;
+		printf("token after while %s \n",token);
+		if (token)
+		{
+			list_path = _strdup(token);
+			printf("list_path : %s \n",list_path);
+			_path = _strcat(_strcat(list_path, slach), filename);
+			printf("path : %s\n",_path);
+			if (access(_path, F_OK) == 0)
+			{
+				printf("file found\n");
+				break;
+			}
+		}
+		else
+			_path = NULL;
+		free(list_path);
+		printf("list_path after free : %s\n",list_path);
 		i++;
 	}
-	for (i = 0; list_path[i]; i++)
-	{
-		_path = _strcat(list_path[i], _strcat("/", filename));
-		if (access(_path, F_OK) == 0)
-		{
-			free(list_path);
-			return (_path);
-		}
-	}
-	return (NULL);
+	free(str_env);
+	printf("fin de path_finder\n");
+	return (_path);
 }
 /**
- *find_env_path - extract path environ variable
- *Return: sting of path env variable
+ *find_env_path - extract path environ variable index
+ *Return: index of path env variable
  */
-char* find_env_path(void)
+int find_env_path(void)
 {
-	int i = -1, j, flag = 1;
-	char *str_path, *target = "PATH";
+	int i = 0, j, index, flag = 1;
+	char *target = "PATH";
 
-	while (environ[++i] && flag)
+	while (environ[i++] && flag)
 	{
 		if (environ[i][0] == target[0])
 		{
@@ -56,16 +68,11 @@ char* find_env_path(void)
 				}
 				else if (environ[i][2] == target[2])
 				{
-again:
-					str_path = _strdup(environ[i]);
-					if (!str_path)
-					{
-						goto again;
-					}
+					index = i;
 					flag = 0;
 				}
 			}
 		}
 	}
-	return (str_path);
+	return (index);
 }

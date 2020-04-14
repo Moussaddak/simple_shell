@@ -13,9 +13,11 @@ extern char **environ;
 char *_strdup(char *str);
 char *_strcat(char *dest, char *src);
 int _strcmp(char *s1, char *s2);
-
+char *_strcpy(char *dest, char *src);
+int _strlen(char *s);
 
 char *_path(char *filename);
-unsigned int count_args(char *str);
+unsigned int count_args(char *str, const char c);
+
 
 #endif

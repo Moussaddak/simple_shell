@@ -7,18 +7,18 @@
  */
 char *_strcat(char *dest, char *src)
 {
-	char *str = dest;
+	int i = 0, j = 0;
 
-	while (*dest != '\0')
-		dest++;
-	while (*src != '\0')
+	i = _strlen(dest);
+
+	while (*(src + j)!= '\0')
 	{
-		*dest = *src;
-		dest++;
-		src++;
+		*(dest + i) = *(src + j);
+		i++;
+		j++;
 	}
-	*dest = '\0';
-	return (str);
+	*(dest + i) = '\0';
+	return (dest);
 }
 /**
  *_strdup -  duplicate of the string pointed to by str
@@ -75,4 +75,34 @@ int _strcmp(char *s1, char *s2)
 	}
 	j += s1[i] - s2[i];
 	return (j);
+}
+/**
+ *_strcpy - prints n elements of an array of integers
+ *@dest: input
+ *@src: input
+ *Return: dest
+ */
+char *_strcpy(char *dest, char *src)
+{
+	char *r = dest;
+	while (*src != '\0')
+	{
+		*dest = *src;
+		src++;
+		dest++;
+	}
+	*dest = '\0';
+	return (r);
+}
+/**
+ *_strlen - prints the length of a string
+ *@s: input
+ *Return: integer
+ */
+int _strlen(char *s)
+{
+	if (*s == '\0')
+		return (0);
+	else
+		return (1 + _strlen(s + 1));
 }
