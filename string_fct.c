@@ -11,7 +11,7 @@ char *_strcat(char *dest, char *src)
 
 	i = _strlen(dest);
 
-	while (*(src + j)!= '\0')
+	while (*(src + j) != '\0')
 	{
 		*(dest + i) = *(src + j);
 		i++;
@@ -85,6 +85,7 @@ int _strcmp(char *s1, char *s2)
 char *_strcpy(char *dest, char *src)
 {
 	char *r = dest;
+
 	while (*src != '\0')
 	{
 		*dest = *src;

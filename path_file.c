@@ -30,6 +30,7 @@ char *_path(char *filename)
 		else
 		{
 			_path = NULL;
+			break;
 		}
 		free(list_path);
 		i++;

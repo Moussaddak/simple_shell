@@ -17,6 +17,8 @@ char *_strcpy(char *dest, char *src);
 int _strlen(char *s);
 
 char *prompt_cmd(void);
+char *parsing_cmd(char *cmd);
+char **store_args(char *buff, char *delims);
 char *_path(char *filename);
 unsigned int count_args(char *str, const char c);
 
