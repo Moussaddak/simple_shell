@@ -8,18 +8,19 @@ char *prompt_cmd(void)
 	size_t size = 0;
 	int index;
 	char *buff, *str, *token;
-
-	printf("$: ");
+	if (isatty(STDIN_FILENO))
+		printf("$: ");
 	index = getline(&buff, &size, stdin);
 	if (index == EOF)
 	{
-		write(STDOUT_FILENO, "\n", 1);
 		free(buff);
+		if (isatty(STDIN_FILENO))
+			write(STDOUT_FILENO, "\n", 1);
 		exit(EXIT_SUCCESS);
 	}
 	buff[index - 1] = '\0';
 	token = strtok(buff, "/");
-	while (token)
+	while(token)
 	{
 		str = _strdup(token);
 		token = strtok(NULL, "/");
