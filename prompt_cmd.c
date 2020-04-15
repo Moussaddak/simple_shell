@@ -8,6 +8,7 @@ char *prompt_cmd(void)
 	size_t size = 0;
 	int index;
 	char *buff, *str, *token;
+
 	if (isatty(STDIN_FILENO))
 		printf("$: ");
 	index = getline(&buff, &size, stdin);
@@ -20,7 +21,7 @@ char *prompt_cmd(void)
 	}
 	buff[index - 1] = '\0';
 	token = strtok(buff, "/");
-	while(token)
+	while (token)
 	{
 		str = _strdup(token);
 		token = strtok(NULL, "/");
