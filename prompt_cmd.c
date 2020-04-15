@@ -11,9 +11,15 @@ char *prompt_cmd(void)
 
 	printf("$: ");
 	index = getline(&buff, &size, stdin);
+	if (index == EOF)
+	{
+		write(STDOUT_FILENO, "\n", 1);
+		free(buff);
+		exit(EXIT_SUCCESS);
+	}
 	buff[index - 1] = '\0';
 	token = strtok(buff, "/");
-	while (token)
+	while(token)
 	{
 		str = _strdup(token);
 		token = strtok(NULL, "/");
