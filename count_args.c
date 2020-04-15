@@ -1,6 +1,7 @@
 /**
  *count_args - calculate number of arguments entred
- *str : command line entred type of string
+ *@str : command line entred type of string
+ *@c: delimiter character
  *Return: number of arguments
  */
 unsigned int count_args(char *str, const char c)
@@ -9,7 +10,7 @@ unsigned int count_args(char *str, const char c)
 
 	for (i = 0; str[i]; i++)
 	{
-		if (str[i] == c && str[i+1] != c)
+		if (str[i] == c && str[i + 1] != c)
 			count++;
 	}
 	return (count + 1);
