@@ -10,41 +10,31 @@ char *_path(char *filename)
 	int i = 0, index;
 	char *token = NULL, *list_path = NULL, *_path, *str_env, *slach = "/\0";
 
-	printf("list_path at begin : %s\n",list_path);
-	printf("list_path : %p\n",list_path);
 	index = find_env_path();
-	printf("index : %d\n",index);
 	str_env = malloc(sizeof(char) * _strlen(environ[index]) + 1);
+/* handle malloc */
 	_strcpy(str_env, environ[index]);
-	printf("str_env : %s \n", str_env);
 	token = strtok(str_env, "=");
-	printf("token %s\n",token);
-	printf("i : %d\n",i);
 	while (token)
 	{
-		printf("i after while : %d\n",i);
 		token = strtok(NULL, ":");
-		printf("token after while %s \n",token);
 		if (token)
 		{
 			list_path = _strdup(token);
-			printf("list_path : %s \n",list_path);
 			_path = _strcat(_strcat(list_path, slach), filename);
-			printf("path : %s\n",_path);
 			if (access(_path, F_OK) == 0)
 			{
-				printf("file found\n");
 				break;
 			}
 		}
 		else
+		{
 			_path = NULL;
+		}
 		free(list_path);
-		printf("list_path after free : %s\n",list_path);
 		i++;
 	}
 	free(str_env);
-	printf("fin de path_finder\n");
 	return (_path);
 }
 /**
