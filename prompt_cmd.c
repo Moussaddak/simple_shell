@@ -13,7 +13,7 @@ char *prompt_cmd(void)
 	index = getline(&buff, &size, stdin);
 	buff[index - 1] = '\0';
 	token = strtok(buff, "/");
-	while(token)
+	while (token)
 	{
 		str = _strdup(token);
 		token = strtok(NULL, "/");
