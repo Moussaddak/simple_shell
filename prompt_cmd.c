@@ -19,7 +19,7 @@ char *prompt_cmd(void)
 	}
 	buff[index - 1] = '\0';
 	token = strtok(buff, "/");
-	while(token)
+	while (token)
 	{
 		str = _strdup(token);
 		token = strtok(NULL, "/");
