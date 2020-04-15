@@ -7,10 +7,8 @@
  */
 int main(void)
 {
-char *buff, delims[] = " ", *str, *error;
+char *buff, delims[] = " \t\r\n\a", *str, *error;
 char **args;
-size_t i = 0;
-pid_t pid;
 
 while (1)
 {
@@ -29,27 +27,12 @@ if (!args[0])
 {
 write(STDOUT_FILENO, error, _strlen(error));
 free(error);
-printf(" :command not found\n");
+_puts(" command not found");
+_puts("\n");
 goto begin;
 }
 free(error);
-pid = fork();
-if (pid == 0)
-{
-if (execve(args[0], args, NULL) == -1)
-{
-printf("Command invoked cannot execute\n");
-goto begin;
-}
-}
-else if (pid > 0)
-{
-waitpid(pid, NULL, 0);
-for (i = 0; args[i]; i++)
-free(args[i]);
-free(args);
-free(buff);
-}
+fork_process(args);
 }
 return (0);
 }
