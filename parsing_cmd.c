@@ -17,7 +17,8 @@ char *parsing_cmd(char *cmd)
 	{
 		for (i = 0 ; environ[i] ; i++)
 		{
-			printf("%s\n", environ[i]);
+			_puts(environ[i]);
+			_puts("\n");
 		}
 		return (NULL);
 	}

@@ -13,6 +13,11 @@ char **store_args(char *buff, char *delims)
 	nb = count_args(buff, ' ');
 	token = strtok(buff, delims);
 	args =  malloc(sizeof(char *) * nb);
+	if (args == NULL)
+	  {
+	    return (NULL);
+	    exit(EXIT_FAILURE);
+	  }
 	/* handle malloc allocation*/
 	args[i++] = _strdup(token);
 	while (token)

@@ -1,6 +1,8 @@
 #ifndef H_SHELL
 #define H_SHELL
 
+#define _POSIX_C_SOURCE 200809L
+
 extern char **environ;
 
 #include <stdio.h>
