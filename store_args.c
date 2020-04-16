@@ -7,24 +7,24 @@
  */
 char **store_args(char *buff, char *delims)
 {
-	char **args, *token;
-	int nb, i = 0;
+char **args, *token;
+int nb, i = 0;
 
-	nb = count_args(buff, ' ');
-	token = strtok(buff, delims);
-	args =  malloc(sizeof(char *) * nb);
-	if (args == NULL)
-	  {
-	    return (NULL);
-	    exit(EXIT_FAILURE);
-	  }
-	/* handle malloc allocation*/
-	args[i++] = _strdup(token);
-	while (token)
-	{
-		token = strtok(NULL, delims);
-		args[i] = _strdup(token);
-		i++;
-	}
-	return (args);
+nb = count_args(buff, ' ');
+token = strtok(buff, delims);
+args =  malloc(sizeof(char *) * nb);
+if (args == NULL)
+{
+return (NULL);
+exit(EXIT_FAILURE);
+}
+/* handle malloc allocation*/
+args[i++] = _strdup(token);
+while (token)
+{
+token = strtok(NULL, delims);
+args[i] = _strdup(token);
+i++;
+}
+return (args);
 }
