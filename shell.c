@@ -1,38 +1,46 @@
 #include "shell.h"
-
 /**
- *main - entry point
- *
- *Return: 0 on success
- */
-int main(void)
+ *main - shell program
+ *@argc: not used
+ *@argv: name of program
+ *Return: 0
+ **/
+int main(int argc __attribute__((unused)), char **argv)
 {
-char *buff, delims[] = " \t\r\n\a", *str, *error;
-char **args;
+	char *buff, delims[] = " ", *str, *error, **args;
+	int line = 0;
+	pid_t pid = 0;
 
-while (1)
-{
+	while (1)
+	{
 begin:
-buff = prompt_cmd();
-buff = parsing_cmd(buff);
-if (!buff)
-goto begin;
-args = store_args(buff, delims);
-str = _path(args[0]);
-error = _strdup(args[0]);
-free(args[0]);
-args[0] = _strdup(str);
-free(str);
-if (!args[0])
-{
-write(STDOUT_FILENO, error, _strlen(error));
-free(error);
-_puts(" command not found");
-_puts("\n");
-goto begin;
-}
-free(error);
-fork_process(args);
-}
-return (0);
+		line++;
+		buff = prompt_cmd();
+		args = store_args(buff, delims);
+		buff = NULL;
+		buff = parsing_cmd(args);
+		if (!buff)
+			goto begin;
+		str = _path(args[0]);
+		error = _strdup(args[0]);
+		free(args[0]), args[0] = NULL;
+		args[0] = _strdup(str);
+		free(str), str = NULL;
+		if (!args[0])
+		{
+			_error(line, &argv[0], error);
+			clear_memory(args), free(error), error = NULL;
+			goto begin;
+		}
+		free(error), error = NULL;
+		pid = fork();
+		if (pid == 0)
+		{
+			execve(args[0], args, NULL);
+		}
+		else if (pid > 0)
+			waitpid(pid, NULL, 0);
+		clear_memory(args);
+	}
+	return (0);
 }

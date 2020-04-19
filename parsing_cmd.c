@@ -4,26 +4,27 @@
  *@cmd: user typed command
  *Return: command line
  */
-char *parsing_cmd(char *cmd)
+char *parsing_cmd(char **cmd)
 {
 	int i;
 
-	if (!_strcmp(cmd, "exit"))
+	if (!_strcmp(cmd[0], "exit"))
 	{
-		free(cmd);
+		clear_memory(cmd);
 		exit(EXIT_SUCCESS);
 	}
-	else if (!_strcmp(cmd, "env"))
+	else if (!_strcmp(cmd[0], "env"))
 	{
 		for (i = 0 ; environ[i] ; i++)
 		{
-			_puts(environ[i]);
-			_puts("\n");
+			write(STDOUT_FILENO, environ[i], _strlen(environ[i]));
+			write(STDOUT_FILENO, "\n", 1);
 		}
+		clear_memory(cmd);
 		return (NULL);
 	}
 	else
 	{
-		return (cmd);
+		return (cmd[0]);
 	}
 }
