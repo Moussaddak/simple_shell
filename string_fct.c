@@ -77,25 +77,6 @@ int _strcmp(char *s1, char *s2)
 	return (j);
 }
 /**
- *_strcpy - prints n elements of an array of integers
- *@dest: input
- *@src: input
- *Return: dest
- */
-char *_strcpy(char *dest, char *src)
-{
-	char *r = dest;
-
-	while (*src != '\0')
-	{
-		*dest = *src;
-		src++;
-		dest++;
-	}
-	*dest = '\0';
-	return (r);
-}
-/**
  *_strlen - prints the length of a string
  *@s: input
  *Return: integer
@@ -106,4 +87,33 @@ int _strlen(char *s)
 		return (0);
 	else
 		return (1 + _strlen(s + 1));
+}
+/**
+ *_uitoa - convert an integer to string
+ *@count: integer to be converted
+ *Return: string
+ */
+char *_uitoa(unsigned int count)
+{
+	char *numstr = NULL;
+	unsigned int tmp = 0, digits = 0;
+
+	tmp = count;
+	for (digits = 0; tmp != 0; digits++)
+	{
+		tmp /= 10;
+	}
+	numstr = malloc(sizeof(char) * (digits + 1));
+	if (numstr == NULL)
+	{
+		perror("Fatal Error");
+		exit(127);
+	}
+   numstr[digits] = '\0';
+  for (--digits; count; --digits)
+  {
+    numstr[digits] = (count % 10) + '0';
+    count /= 10;
+  }
+  return (numstr);
 }
