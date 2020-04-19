@@ -1,5 +1,5 @@
 #include "shell.h"
-int find_env_path(void);
+char* find_env_path(void);
 /**
  *_path - find path of a specific command
  *@filename: name of the command
@@ -7,13 +7,10 @@ int find_env_path(void);
  */
 char *_path(char *filename)
 {
-	int i = 0, index;
-	char *token = NULL, *list_path = NULL, *_path, *str_env, *slach = "/\0";
+	int i = 0;
+	char *token, *list_path, *_path, *str_env, *slach = "/\0";
 
-	index = find_env_path();
-	str_env = malloc(sizeof(char) * _strlen(environ[index]) + 1);
-/* handle malloc */
-	_strcpy(str_env, environ[index]);
+	str_env = find_env_path();
 	token = strtok(str_env, "=");
 	while (token)
 	{
@@ -32,22 +29,22 @@ char *_path(char *filename)
 			_path = NULL;
 			break;
 		}
-		free(list_path);
+		free(list_path), list_path = NULL;
 		i++;
 	}
-	free(str_env);
+	free(str_env), str_env = NULL;
 	return (_path);
 }
 /**
- *find_env_path - extract path environ variable index
- *Return: index of path env variable
+ *find_env_path - extract path environ variable
+ *Return: sting of path env variable
  */
-int find_env_path(void)
+char* find_env_path(void)
 {
-	int i = 0, j, index, flag = 1;
-	char *target = "PATH";
+	int i = -1, j, flag = 1;
+	char *str_path, *target = "PATH";
 
-	while (environ[i++] && flag)
+	while (environ[++i] && flag)
 	{
 		if (environ[i][0] == target[0])
 		{
@@ -59,11 +56,11 @@ int find_env_path(void)
 				}
 				else if (environ[i][2] == target[2])
 				{
-					index = i;
+					str_path = _strdup(environ[i]);
 					flag = 0;
 				}
 			}
 		}
 	}
-	return (index);
+	return (str_path);
 }
