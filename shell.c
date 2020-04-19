@@ -13,33 +13,35 @@ int main(int argc __attribute__((unused)), char **argv)
 
 	while (1)
 	{
-begin:
 		line++;
 		buff = prompt_cmd();
 		args = store_args(buff, delims);
 		buff = NULL;
 		buff = parsing_cmd(args);
-		if (!buff)
-			goto begin;
-		str = _path(args[0]);
-		error = _strdup(args[0]);
-		free(args[0]), args[0] = NULL;
-		args[0] = _strdup(str);
-		free(str), str = NULL;
-		if (!args[0])
+		if (buff)
 		{
-			_error(line, &argv[0], error);
-			clear_memory(args), free(error), error = NULL;
-			goto begin;
+			str = _path(args[0]);
+			error = _strdup(args[0]);
+			free(args[0]), args[0] = NULL;
+			args[0] = _strdup(str);
+			free(str), str = NULL;
+			if (!args[0])
+			{
+				_error(line, &argv[0], error);
+				clear_memory(args), free(error), error = NULL;
+			}
+			else
+			{
+				free(error), error = NULL;
+				pid = fork();
+				if (pid == 0)
+				{
+					execve(args[0], args, NULL);
+				}
+				else if (pid > 0)
+					waitpid(pid, NULL, 0);
+			}
 		}
-		free(error), error = NULL;
-		pid = fork();
-		if (pid == 0)
-		{
-			execve(args[0], args, NULL);
-		}
-		else if (pid > 0)
-			waitpid(pid, NULL, 0);
 		clear_memory(args);
 	}
 	return (0);
