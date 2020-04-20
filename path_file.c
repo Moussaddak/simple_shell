@@ -17,7 +17,9 @@ char *_path(char *filename)
 		token = strtok(NULL, ":");
 		if (token)
 		{
-			list_path = _strdup(token);
+			list_path = malloc(sizeof(char) * (_strlen(token) +
+				_strlen(filename) + 2));
+			_strcpy(list_path, token);
 			_path = _strcat(_strcat(list_path, slach), filename);
 			if (access(_path, F_OK) == 0)
 			{
