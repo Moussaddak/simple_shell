@@ -21,14 +21,14 @@ int main(int argc __attribute__((unused)), char **argv)
 		if (buff)
 		{
 			str = _path(args[0]);
-			error = _strdup(args[0]);
+			error = strdup(args[0]);
 			free(args[0]), args[0] = NULL;
 			args[0] = _strdup(str);
 			free(str), str = NULL;
 			if (!args[0])
 			{
 				_error(line, &argv[0], error);
-				clear_memory(args), free(error), error = NULL;
+				free(error), error = NULL;
 			}
 			else
 			{

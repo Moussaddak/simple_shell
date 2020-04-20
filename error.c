@@ -13,5 +13,5 @@ void _error(int line, char **args, char *str)
 	write(STDERR_FILENO, _uitoa(line), _strlen(_uitoa(line)));
 	write(STDERR_FILENO, ": ", 2);
 	write(STDERR_FILENO, str, _strlen(str));
-	write(STDERR_FILENO, ": not found\n", 13);
+	write(STDERR_FILENO, ": not found\n", 12);
 }
