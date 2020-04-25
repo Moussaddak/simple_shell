@@ -13,6 +13,6 @@ void clear_memory(char **args)
 		{
 			free(args[i]), args[i] = NULL;
 		}
-		args = NULL;
+		free(args),args = NULL;
 	}
 }
